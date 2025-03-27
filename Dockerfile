@@ -1,14 +1,15 @@
-# Use the official OpenJDK 17 image as the base image
-FROM openjdk:17-slim
+# Use OpenJDK 17 as the base image
+FROM openjdk:17-jdk-slim
 
 # Set the working directory inside the container
 WORKDIR /app
 
-# Copy the source code into the container
-COPY src/ /app/src/
+# Copy the JAR file into the container
+COPY DigitalLibrary.jar /app/DigitalLibrary.jar
 
-# Compile the Java source code
-RUN javac src/Main.java -d out
+# Expose the port (if your app runs on a specific port)
+EXPOSE 8080
 
-# Set the classpath and specify the main class to run
-CMD ["java", "-cp", "out", "Main"]
+# Command to run the JAR file
+CMD ["java", "-jar", "/app/DigitalLibrary.jar"]
+

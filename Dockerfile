@@ -1,14 +1,14 @@
-# Use an official OpenJDK runtime as a parent image
-FROM openjdk:17-jdk-slim
+# Use the official OpenJDK 17 image as the base image
+FROM openjdk:17-slim
 
 # Set the working directory inside the container
 WORKDIR /app
 
-# Copy all project files into the container
-COPY src/ /app/
+# Copy the source code into the container
+COPY src/ /app/src/
 
-# Compile the Java files
-RUN javac -d . /app/*.java
+# Compile the Java source code
+RUN javac src/Main.java -d out
 
-# Set the command to run your Java application
-CMD ["java", "Main"]
+# Set the classpath and specify the main class to run
+CMD ["java", "-cp", "out", "Main"]
